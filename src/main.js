@@ -1,7 +1,8 @@
 require('../node_modules/@salesforce-ux/design-system/assets/styles/salesforce-lightning-design-system.css');
 
 var SDK = require('blocksdk');
-const fetch = require('node-fetch');
+//const fetch = require('node-fetch');
+const axios = require('axios');
 var sdk = new SDK(null, null, true); // 3rd argument true bypassing https requirement: not prod worthy
 
 //var address, width, height, zoom, link, mapsKey;
@@ -29,7 +30,7 @@ document.getElementById('chatgpt-button').addEventListener('click', async (event
 	const chatgptPrompt = document.getElementById('chatgpt-input').value;
 	console.log('chatgptPrompt = '+chatgptPrompt);
 	sdk.setContent('Question :'+chatgptPrompt);
-	const response = await fetch('https://api.openai.com/v1/completions', {
+	/*const response = await fetch('https://api.openai.com/v1/completions', {
   		method: 'POST',
   		headers: {
 			'Content-Type': 'application/json',
@@ -41,11 +42,33 @@ document.getElementById('chatgpt-button').addEventListener('click', async (event
 			max_tokens: 200,
 			temperature: 0
 		})
-	});
+	});*/
+
+	
+
+	const headers = {
+	'Content-Type': 'application/json',
+	'Authorization': 'Bearer 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'
+	};
+
+	const data = {
+		model: 'text-davinci-003',
+		prompt: chatgptPrompt,
+		max_tokens: 200,
+		temperature: 0
+	};
+
+	try {
+		const response = await axios.post('https://api.openai.com/v1/completions', data, { headers });
+		console.log(response.data.choices[0].text);
+	} catch (error) {
+		console.error(error);
+	}
 
   	const responseData = await response.json();
 	console.log("responseData : "+responseData);
-	sdk.setContent(responseData);
+	sdk.setContent(response.data.choices[0].text);
+	
 });
 
 
