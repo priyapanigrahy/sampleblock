@@ -24,8 +24,9 @@ function debounce (func, wait, immediate) {
 }
 
 
-document.getElementById('chatgpt-button').addEventListener('click', async (event) => {
-	event.preventDefault();
+//document.getElementById('chatgpt-button').addEventListener('click', async (event) => {
+document.getElementById('chatgpt-button').addEventListener("click", function () {	
+	//event.preventDefault();
 
 	const chatgptPrompt = document.getElementById('chatgpt-input').value;
 	console.log('chatgptPrompt = '+chatgptPrompt);
