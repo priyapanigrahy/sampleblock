@@ -5,6 +5,8 @@ var sdk = new SDK(null, null, true); // 3rd argument true bypassing https requir
 
 var address, width, height, zoom, link, mapsKey;
 
+var chatgptPrompt;
+
 function debounce (func, wait, immediate) {
 	var timeout;
 	return function() {
@@ -47,7 +49,8 @@ function paintMap() {
 	var url = 'https://maps.googleapis.com/maps/api/staticmap?center=' +
 		address.split(' ').join('+') + '&size=' + width + 'x' + height + '&zoom=' + zoom +
 		'&markers=' + address.split(' ').join('+') + '&key=' + mapsKey;
-	sdk.setContent('<a href="' + link + '"><img src="' + url + '" /></a> <br/> <b> Custom Text Google Map </b>');
+	sdk.setContent('<a href="' + link + '"><img src="' + url + '" /></a>');
+
 	sdk.setData({
 		address: address,
 		width: width,
@@ -60,6 +63,7 @@ function paintMap() {
 }
 
 sdk.getData(function (data) {
+	console.log('entering from sdk.getData -------'+new Date());
 	address = data.address || '';
 	width = data.width || 400;
 	height = data.height || 300;
@@ -69,9 +73,21 @@ sdk.getData(function (data) {
 	paintSettings();
 	paintSliderValues();
 	paintMap();
+	console.log('exiting from sdk.getData -------'+new Date());
 });
 
 document.getElementById('workspace').addEventListener("input", function () {
+	console.log('entering workspace input event listener  -------'+new Date());
 	debounce(paintMap, 500)();
 	paintSliderValues();
+	console.log('exiting workspace input event listener  -------'+new Date());
 });
+
+document.getElementById('chatgpt').addEventListener("input", function () {
+	debounce(getChatGPT, 1000)();
+});
+
+function getChatGPT() {
+	chatgptPrompt = document.getElementById('chatgpt-input').value;
+	sdk.setContent('<b> Question : '+chatgptPrompt+'  </b>');
+}
