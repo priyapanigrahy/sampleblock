@@ -26,5 +26,8 @@
   "devDependencies": {
     "webpack": "^3.10.0",
     "webpack-css-loaders": "^1.0.0"
+  },
+  "engines": {
+    "node": "18.x"
   }
 }
