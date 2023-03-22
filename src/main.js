@@ -1,11 +1,11 @@
 require('../node_modules/@salesforce-ux/design-system/assets/styles/salesforce-lightning-design-system.css');
 
 var SDK = require('blocksdk');
+const fetch = require('node-fetch');
 var sdk = new SDK(null, null, true); // 3rd argument true bypassing https requirement: not prod worthy
 
-var address, width, height, zoom, link, mapsKey;
+//var address, width, height, zoom, link, mapsKey;
 
-var chatgptPrompt;
 
 function debounce (func, wait, immediate) {
 	var timeout;
@@ -22,7 +22,36 @@ function debounce (func, wait, immediate) {
 	};
 }
 
-function paintSettings () {
+
+document.getElementById('chatgpt-button').addEventListener('click', async (event) => {
+	event.preventDefault();
+
+	const chatgptPrompt = document.getElementById('chatgpt-input').value;
+	console.log('chatgptPrompt = '+chatgptPrompt);
+	sdk.setContent('Question :'+chatgptPrompt);
+	const response = await fetch('https://api.openai.com/v1/completions', {
+  		method: 'POST',
+  		headers: {
+			'Content-Type': 'application/json',
+			'Authorization': 'Bearer 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'
+		},
+  		body: JSON.stringify({
+			model: "text-davinci-003",
+			prompt: chatgptPrompt,
+			max_tokens: 200,
+			temperature: 0
+		})
+	});
+
+  	const responseData = await response.json();
+	console.log("responseData : "+responseData);
+	sdk.setContent(responseData);
+});
+
+
+
+
+/*function paintSettings () {
 	document.getElementById('text-input-id-0').value = mapsKey;
 	document.getElementById('text-input-id-1').value = address;
 	document.getElementById('slider-id-01').value = width;
@@ -82,12 +111,5 @@ document.getElementById('workspace').addEventListener("input", function () {
 	paintSliderValues();
 	console.log('exiting workspace input event listener  -------'+new Date());
 });
+*/
 
-document.getElementById('chatgpt').addEventListener("input", function () {
-	debounce(getChatGPT, 1000)();
-});
-
-function getChatGPT() {
-	chatgptPrompt = document.getElementById('chatgpt-input').value;
-	sdk.setContent('<b> Question : '+chatgptPrompt+'  </b>');
-}
