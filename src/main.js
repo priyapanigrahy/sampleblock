@@ -30,7 +30,7 @@ document.getElementById('chatgpt-button').addEventListener("click", async () => 
 
 	const headers = {
 		'Content-Type': 'application/json',
-		'Authorization': 'Bearer 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'
+		'Authorization': 'Bearer '+process.env.API_KEY
 	};
 
 	const data = {
