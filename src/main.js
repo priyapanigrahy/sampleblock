@@ -24,32 +24,28 @@ function debounce (func, wait, immediate) {
 }
 
 
-//document.getElementById('chatgpt-button').addEventListener('click', async (event) => {
-document.getElementById('chatgpt-button').addEventListener("click", async function () {	
-	//event.preventDefault();
+const button = document.querySelector('#myButton');
 
+button.addEventListener('click', async () => {
+  try {
+    const response = await axios.post('https://my-api.com/post', {
+      data: 'my data',
+    });
+    console.log(response.data);
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+
+document.getElementById('chatgpt-button').addEventListener("click", async () => {	
 	const chatgptPrompt = document.getElementById('chatgpt-input').value;
 	console.log('chatgptPrompt = '+chatgptPrompt);
 	sdk.setContent('Question :'+chatgptPrompt);
-	/*const response = await fetch('https://api.openai.com/v1/completions', {
-  		method: 'POST',
-  		headers: {
-			'Content-Type': 'application/json',
-			'Authorization': 'Bearer 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'
-		},
-  		body: JSON.stringify({
-			model: "text-davinci-003",
-			prompt: chatgptPrompt,
-			max_tokens: 200,
-			temperature: 0
-		})
-	});*/
-
-	
 
 	const headers = {
-	'Content-Type': 'application/json',
-	'Authorization': 'Bearer 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'
+		'Content-Type': 'application/json',
+		'Authorization': 'Bearer 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'
 	};
 
 	const data = {
