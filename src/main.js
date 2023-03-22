@@ -23,21 +23,6 @@ function debounce (func, wait, immediate) {
 	};
 }
 
-
-const button = document.querySelector('#myButton');
-
-button.addEventListener('click', async () => {
-  try {
-    const response = await axios.post('https://my-api.com/post', {
-      data: 'my data',
-    });
-    console.log(response.data);
-  } catch (error) {
-    console.error(error);
-  }
-});
-
-
 document.getElementById('chatgpt-button').addEventListener("click", async () => {	
 	const chatgptPrompt = document.getElementById('chatgpt-input').value;
 	console.log('chatgptPrompt = '+chatgptPrompt);
