@@ -61,14 +61,12 @@ document.getElementById('chatgpt-button').addEventListener('click', async (event
 	try {
 		const response = await axios.post('https://api.openai.com/v1/completions', data, { headers });
 		console.log(response.data.choices[0].text);
+		const responseData = await response.json();
+		console.log("responseData : "+responseData);
+		sdk.setContent(response.data.choices[0].text);
 	} catch (error) {
 		console.error(error);
 	}
-
-  	const responseData = await response.json();
-	console.log("responseData : "+responseData);
-	sdk.setContent(response.data.choices[0].text);
-	
 });
 
 
