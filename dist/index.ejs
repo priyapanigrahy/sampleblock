@@ -17,7 +17,8 @@
   <script src="./blocksdk.js"></script>
   <script type="text/javascript">
     var sdk = new SDK(null, null, true);
-    sdk.setContent("<%= message %>");
+    let responseStr = `<%= message %>`;
+    sdk.setContent("<p>"+responseStr+"</p>");
   </script>
   </body>
 </html>
