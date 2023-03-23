@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ChatGPT App</title>
+  </head>
+  <body>
+    <article class="slds-card">
+    <h1>ChatGPT - Custom Content - MC App</h1>
+
+    <form method="POST">
+      <label for="prompt">Enter your prompt:</label>
+      <br>
+      <textarea id="prompt" name="prompt" rows="5" cols="50" value="<%= prompt %>"></textarea>
+      <br>
+      <button type="submit">Generate</button>
+    </form> 
+  <script src="../node_modules/blocksdk/blocksdk.js"></script>
+  <script type="text/javascript">
+    var sdk = new SDK(null, null, true);
+    sdk.setContent("<%= message %>");
+  </script>
+  </body>
+</html>
+
