@@ -30,7 +30,7 @@ app.post('/', (req, res) => {
   
   axios.post(API_URL, {
     prompt,
-    model: "text-davinci-003",
+    model: req.body.model,
     max_tokens: 200,
     temperature: 0
     
@@ -42,7 +42,7 @@ app.post('/', (req, res) => {
   })
   .then(response => {
     message = response.data.choices[0].text.trim();
-    res.render('index', { prompt, message });
+    res.render('index', { prompt, message, model });
   })
   .catch(error => {
     console.error(error);
