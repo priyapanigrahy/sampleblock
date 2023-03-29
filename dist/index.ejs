@@ -8,7 +8,7 @@
     <h1>ChatGPT - Custom Content - MC App</h1>
 
     <form method="POST">
-      <label for="prompt">Enter your prompt:</label>
+      <label for="prompt">Enter Prompt for ChatGPT to generate content:</label>
       <br>
       <textarea id="prompt" name="prompt" rows="5" cols="40" value="<%= prompt %>"></textarea>
       <br>
@@ -18,7 +18,7 @@
   <script type="text/javascript">
     var sdk = new SDK(null, null, true);
     let responseStr = `<%= message %>`;
-    sdk.setContent("<p>"+responseStr+"</p>");
+    sdk.setContent("<b><p>"+responseStr+"</p><b>");
   </script>
   </body>
 </html>
