@@ -21,7 +21,7 @@ app.set('views', path.join(__dirname, 'dist'));
 
 // Set up routes
 app.get('/', (req, res) => {
-  res.render('index', { prompt: '', message: '' });
+  res.render('index', { prompt: '', message: '', model : '' });
 });
 
 app.post('/', (req, res) => {
