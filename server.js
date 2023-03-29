@@ -26,11 +26,12 @@ app.get('/', (req, res) => {
 
 app.post('/', (req, res) => {
   const prompt = req.body.prompt;
+  const model =  req.body.model;
   var message = '';
   
   axios.post(API_URL, {
     prompt,
-    model: req.body.model,
+    model: model,
     max_tokens: 200,
     temperature: 0
     
